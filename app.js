@@ -1,23 +1,24 @@
-function toggleGiftMenu() {
-    const menu = document.getElementById('gift-menu');
-    if (menu.style.display === 'none') {
-        menu.style.display = 'block';
-    } else {
-        menu.style.display = 'none';
-    }
-}
-
 let balance = 1000000000;
 let redDiamonds = 0;
 
-function sendGift(price) {
+function toggleGiftMenu() {
+    const menu = document.getElementById('gift-menu');
+    if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "block";
+    } else {
+        menu.style.display = "none";
+    }
+}
+
+function sendGift(price, giftName) {
     if (balance >= price) {
         balance -= price;
-        redDiamonds += (price * 0.65); // الضيف يحصل على 65%
+        redDiamonds += (price * 0.65);
         updateUI();
-        console.log("تم خصم الضريبة 35% لصالح السلطان أيهم");
+        alert("تم إرسال " + giftName + " بنجاح! 🚀");
+        toggleGiftMenu(); 
     } else {
-        alert("الرصيد غير كافٍ!");
+        alert("عذراً سلطان أيهم، الرصيد غير كافٍ!");
     }
 }
 
