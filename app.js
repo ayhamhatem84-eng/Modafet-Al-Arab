@@ -1,3 +1,12 @@
+function toggleGiftMenu() {
+    const menu = document.getElementById('gift-menu');
+    if (menu.style.display === 'none') {
+        menu.style.display = 'block';
+    } else {
+        menu.style.display = 'none';
+    }
+}
+
 let balance = 1000000000;
 let redDiamonds = 0;
 
