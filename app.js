@@ -3,10 +3,12 @@ let redDiamonds = 0;
 
 function toggleGiftMenu() {
     const menu = document.getElementById('gift-menu');
-    if (menu.style.display === "none" || menu.style.display === "") {
-        menu.style.display = "block";
-    } else {
-        menu.style.display = "none";
+    if (menu) {
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "block";
+        } else {
+            menu.style.display = "none";
+        }
     }
 }
 
@@ -23,6 +25,10 @@ function sendGift(price, giftName) {
 }
 
 function updateUI() {
-    document.getElementById('darahemBalance').innerText = balance.toLocaleString();
-    document.getElementById('diamondBalance').innerText = redDiamonds.toLocaleString();
+    const dBalance = document.getElementById('darahemBalance');
+    const rDiamonds = document.getElementById('diamondBalance');
+    if (dBalance && rDiamonds) {
+        dBalance.innerText = balance.toLocaleString();
+        rDiamonds.innerText = redDiamonds.toLocaleString();
+    }
 }
