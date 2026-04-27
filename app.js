@@ -1,34 +1,30 @@
 let balance = 1000000000;
-let redDiamonds = 0;
+let userRank = "لاعب متميز";
 
-function toggleGiftMenu() {
-    const menu = document.getElementById('gift-menu');
-    if (menu) {
-        if (menu.style.display === "none" || menu.style.display === "") {
-            menu.style.display = "block";
+function playGame(gameName) {
+    let bet = 1000000; // قيمة الرهان لكل لعبة
+    if (balance >= bet) {
+        balance -= bet;
+        // محاكاة الفوز والخسارة بشكل عشوائي
+        let win = Math.random() > 0.5; 
+        if (win) {
+            let prize = bet * 2;
+            balance += prize;
+            alert("مبروك! فزت في لعبة " + gameName + " وحصلت على " + prize.toLocaleString() + " درهم 💰");
         } else {
-            menu.style.display = "none";
+            alert("حظ أوفر في المرة القادمة في لعبة " + gameName);
         }
-    }
-}
-
-function sendGift(price, giftName) {
-    if (balance >= price) {
-        balance -= price;
-        redDiamonds += (price * 0.65);
         updateUI();
-        alert("تم إرسال " + giftName + " بنجاح! 🚀");
-        toggleGiftMenu(); 
     } else {
-        alert("عذراً سلطان أيهم، الرصيد غير كافٍ!");
+        alert("عذراً سلطان أيهم، الرصيد غير كافٍ للعب!");
     }
 }
 
 function updateUI() {
-    const dBalance = document.getElementById('darahemBalance');
-    const rDiamonds = document.getElementById('diamondBalance');
-    if (dBalance && rDiamonds) {
-        dBalance.innerText = balance.toLocaleString();
-        rDiamonds.innerText = redDiamonds.toLocaleString();
+    document.getElementById('darahemBalance').innerText = balance.toLocaleString();
+    if (balance >= 1500000000) {
+        userRank = "SVIP الملكي 👑";
+        document.getElementById('user-rank').style.color = "#d4af37";
     }
+    document.getElementById('user-rank').innerText = userRank;
 }
