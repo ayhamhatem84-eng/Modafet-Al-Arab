@@ -2,49 +2,107 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مركز ألعاب العرب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز ألعاب العرب - المطور</title>
     <style>
-        body { background: #121212; color: white; font-family: sans-serif; text-align: center; }
-        .header { background: linear-gradient(to bottom, #d4af37, #aa841e); padding: 20px; font-size: 24px; font-weight: bold; color: #000; }
-        .stats { display: flex; justify-content: center; gap: 20px; padding: 20px; background: #1e1e1e; margin: 10px; border-radius: 15px; }
-        .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .game-card { background: #252525; padding: 20px; border-radius: 15px; border: 1px solid #333; transition: 0.3s; }
-        .game-card:active { transform: scale(0.95); background: #d4af37; color: black; }
-        .game-icon { font-size: 40px; display: block; margin-bottom: 10px; }
-        .svip-tag { color: #888; font-weight: bold; margin-top: 5px; }
+        :root { --gold: #d4af37; --dark: #121212; --card-bg: #1e1e1e; }
+        body { background-color: var(--dark); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; text-align: center; }
+        
+        .header { background: linear-gradient(135deg, var(--gold) 0%, #aa841e 100%); padding: 25px; font-size: 26px; font-weight: bold; color: black; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); position: sticky; top: 0; z-index: 100; }
+        
+        .user-panel { background-color: var(--card-bg); margin: 15px; padding: 20px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .label { color: #888; font-size: 14px; display: block; margin-bottom: 5px; }
+        .balance { font-size: 28px; font-weight: bold; color: white; display: block; margin-bottom: 5px; }
+        .rank { font-size: 16px; font-weight: bold; }
+        .svip-active { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.7); }
+
+        /* قسم الرهان الجديد */
+        .bet-control-panel { background-color: #252525; margin: 15px; padding: 20px; border-radius: 20px; border: 1px solid #444; }
+        .bet-display { font-size: 24px; color: var(--gold); font-weight: bold; margin-bottom: 15px; }
+        .bet-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .bet-btn { background-color: #333; color: white; border: 1px solid #555; padding: 12px; border-radius: 10px; font-weight: bold; transition: 0.2s; font-size: 14px; }
+        .bet-btn:active { transform: scale(0.95); background-color: var(--gold); color: black; }
+
+        .game-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; padding-bottom: 30px; }
+        .game-card { background-color: var(--card-bg); padding: 30px 10px; border-radius: 20px; border: 1px solid #333; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+        .game-card:hover { border-color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        .game-card:active { transform: scale(0.97); }
+        
+        /* تكبير الأيقونات */
+        .game-icon-large { font-size: 80px; display: block; margin-bottom: 20px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); }
+        
+        .game-title { font-size: 18px; font-weight: bold; color: white; margin-top: auto; }
+        
+        /* شاشة اللعبة المنبثقة */
+        .game-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        .game-screen-content { background: var(--card-bg); width: 90%; max-width: 400px; height: 80vh; border-radius: 30px; border: 2px solid var(--gold); position: relative; padding: 20px; display: flex; flex-direction: column; }
+        .close-game { position: absolute; top: 15px; left: 15px; font-size: 30px; color: #888; cursor: pointer; background: none; border: none; }
+        .close-game:hover { color: white; }
+        .game-placeholder-text { color: #888; font-size: 20px; flex-grow: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 10px; }
+        .action-btns { display: flex; gap: 10px; margin-top: auto; }
+        .spin-btn { flex: 2; background: linear-gradient(to right, #2e7d32, #1b5e20); color: white; border: none; padding: 15px; border-radius: 15px; font-size: 18px; font-weight: bold; }
+        .auto-btn { flex: 1; background: #333; color: white; border: none; padding: 15px; border-radius: 15px; font-size: 16px; }
+
     </style>
 </head>
 <body>
-    <div class="header">مضافة العرب - مركز الألعاب 🎮</div>
+    <div class="header">مضافة العرب - مركز الألعاب المطور 🎮</div>
     
-    <div class="stats">
-        <div>
-            <span style="color: #d4af37;">الرصيد:</span>
-            <div id="darahemBalance" style="font-size: 20px;">1,000,000,000</div>
-            <div id="user-rank" class="svip-tag">لاعب متميز</div>
+    <div class="user-panel">
+        <span class="label">الرصيد الملكي</span>
+        <span id="darahemBalance" class="balance">1,000,000,000</span>
+        <span id="user-rank" class="rank svip-active">لاعب متميز</span>
+    </div>
+
+    <div class="bet-control-panel">
+        <span class="label">الرهان الحالي</span>
+        <div id="betDisplay" class="bet-display">1,000,000</div>
+        <div class="bet-buttons">
+            <button class="bet-btn" onclick="changeBet(100000)">100 ألف</button>
+            <button class="bet-btn" onclick="changeBet(500000)">500 ألف</button>
+            <button class="bet-btn" onclick="changeBet(1000000)">1 مليون</button>
+            <button class="bet-btn" onclick="changeBet(5000000)">5 مليون</button>
         </div>
     </div>
 
     <div class="game-grid">
-        <div class="game-card" onclick="playGame('777')">
-            <span class="game-icon">🎰</span>
-            <b>لعبة 777</b>
+        <div class="game-card" onclick="openGame('🎰', 'لعبة 777')">
+            <span class="game-icon-large">🎰</span>
+            <span class="game-title">لعبة 777</span>
         </div>
-        <div class="game-card" onclick="playGame('الخضار واللحوم')">
-            <span class="game-icon">🥩</span>
-            <b>خضار ولحوم</b>
+        <div class="game-card" onclick="openGame('🥩', 'خضار ولحوم')">
+            <span class="game-icon-large">🥩</span>
+            <span class="game-title">خضار ولحوم</span>
         </div>
-        <div class="game-card" onclick="playGame('ون بيس')">
-            <span class="game-icon">🏴‍☠️</span>
-            <b>ون بيس</b>
+        <div class="game-card" onclick="openGame('🏴‍☠️', 'ون بيس')">
+            <span class="game-icon-large">🏴‍☠️</span>
+            <span class="game-title">ون بيس</span>
         </div>
-        <div class="game-card" onclick="playGame('آلهة الرعد')">
-            <span class="game-icon">⚡</span>
-            <b>آلهة الرعد</b>
+        <div class="game-card" onclick="openGame('⚡', 'آلهة الرعد')">
+            <span class="game-icon-large">⚡</span>
+            <span class="game-title">آلهة الرعد</span>
         </div>
-        <div class="game-card" style="grid-column: span 2;" onclick="playGame('الأسماك')">
-            <span class="game-icon">🐟</span>
-            <b>لعبة الأسماك</b>
+        <div class="game-card" onclick="openGame('🐟', 'لعبة الأسماك')">
+            <span class="game-icon-large">🐟</span>
+            <span class="game-title">لعبة الأسماك</span>
+        </div>
+    </div>
+
+    <div id="gameOverlay" class="game-overlay">
+        <div class="game-screen-content">
+            <button class="close-game" onclick="closeGame()">×</button>
+            <div id="gameScreenHeader" style="color: var(--gold); font-size: 22px; font-weight: bold; margin-bottom: 20px;"></div>
+            
+            <div class="game-placeholder-text">
+                <div id="gameVisual" style="font-size: 100px;">🧩</div>
+                <div>جاري تحميل اللعبة...</div>
+                <div style="font-size: 14px;">(سيتم إضافة تفاصيل اللعبة الحقيقية هنا لاحقاً)</div>
+            </div>
+
+            <div class="action-btns">
+                <button class="auto-btn" onclick="toggleAuto()">لعب تلقائي</button>
+                <button class="spin-btn" onclick="spin()">لعب عادي</button>
+            </div>
         </div>
     </div>
 
