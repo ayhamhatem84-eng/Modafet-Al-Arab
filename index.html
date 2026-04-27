@@ -54,10 +54,18 @@ index.html<!DOCTYPE html>
 
 <div class="control-bar">
     <button class="btn btn-mic" onclick="alert('جاري تفعيل الميكروفون...')">تشغيل المايك 🎤
-      <button class="btn btn-gift" onclick="sendGift(1000000)">إرسال هدية 🎁</button>
-      
+      <button class="btn btn-gift" onclick="toggleGiftMenu()">إرسال هدية 🎁</button>
       <button class="btn btn-games" onclick="alert('جاري الانتقال لغرفة الألعاب (خزان الـ 200 مليون)...')">دخول الألعاب 🎰</button>
 
 <script src="app.js"></script>
+<div id="gift-menu" style="display:none; background: #1e1e1e; padding: 15px; border-radius: 15px; margin-top: 10px; border: 1px solid #d4af37;">
+    <h3 style="color: #d4af37; text-align: center; margin-bottom: 10px; font-size: 16px;">اختر هدية لترسلها 🎁</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+        <button onclick="sendGift(100000, 'وردة 🌹')" style="background: #333; color: #fff; border: 1px solid #555; padding: 8px; border-radius: 10px; font-size: 12px;">🌹 100 ألف</button>
+        <button onclick="sendGift(500000, 'قلب ❤️')" style="background: #333; color: #fff; border: 1px solid #555; padding: 8px; border-radius: 10px; font-size: 12px;">❤️ 500 ألف</button>
+        <button onclick="sendGift(1000000, 'سيارة 🚗')" style="background: #333; color: #fff; border: 1px solid #555; padding: 8px; border-radius: 10px; font-size: 12px;">🚗 1 مليون</button>
+    </div>
+</div>
+ 
 </body>
 </html>
