@@ -1,0 +1,63 @@
+index.html<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مضافة العرب - النسخة الملكية</title>
+    <style>
+        body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        .header { background: linear-gradient(135deg, #d4af37 0%, #8a6d3b 100%); padding: 15px; text-align: center; font-size: 22px; font-weight: bold; color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .user-card { background: #1e1e1e; margin: 15px; padding: 20px; border-radius: 15px; border-right: 4px solid #d4af37; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .id-badge { background: rgba(212, 175, 55, 0.1); color: #d4af37; padding: 4px 10px; border-radius: 5px; font-size: 14px; display: inline-block; margin-top: 5px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .stat-box { background: #252525; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #333; }
+        .stat-label { font-size: 12px; color: #888; margin-bottom: 5px; }
+        .stat-value { font-size: 18px; font-weight: bold; color: #d4af37; }
+        .main-room { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #2a2a2a 0%, #121212 100%); }
+        .seat-owner { width: 100px; height: 100px; border: 4px solid #d4af37; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; background: #000; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); margin-bottom: 10px; position: relative; }
+        .owner-glow { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid #d4af37; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+        .control-bar { padding: 20px; background: #1a1a1a; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { border: none; padding: 15px; border-radius: 10px; font-weight: bold; color: white; cursor: pointer; transition: 0.3s; }
+        .btn-mic { background: #333; border: 1px solid #444; }
+        .btn-gift { background: #c62828; box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3); }
+        .btn-games { grid-column: span 2; background: linear-gradient(to right, #2e7d32, #1b5e20); margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">مضافة العرب 🐪</div>
+
+<div class="user-card">
+    <div style="font-size: 24px; font-weight: bold; color: #fff;">أهلاً بك، <span style="color: #d4af37;">أيهم</span></div>
+    <div class="id-badge">المعرف الملكي: #00000</div>
+    
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-label">رصيد الدراهم</div>
+            <div class="stat-value">1,000,000,000</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">الألماس الأحمر</div>
+            <div class="stat-value">0</div>
+        </div>
+    </div>
+</div>
+
+<div class="main-room">
+    <div class="seat-owner">
+        <div class="owner-glow"></div>
+        👑
+    </div>
+    <div style="font-size: 20px; font-weight: bold; color: #d4af37;">AYHAM</div>
+    <div style="font-size: 14px; color: #888;">سلطان المضافة</div>
+</div>
+
+<div class="control-bar">
+    <button class="btn btn-mic" onclick="alert('جاري تفعيل الميكروفون...')">تشغيل المايك 🎤</button>
+    <button class="btn btn-gift" onclick="alert('فتح قائمة الهدايا...')">إرسال هدية 🎁</button>
+    <button class="btn btn-games" onclick="alert('جاري الانتقال لغرفة الألعاب (خزان الـ 200 مليون)...')">دخول الألعاب 🎰</button>
+</div>
+
+</body>
+</html>
